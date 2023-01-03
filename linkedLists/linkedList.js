@@ -69,25 +69,67 @@ class SinglyLinkedList {
             this.head = newNode;
             this.tail = newNode;
         }
-        if(!newNode){
+        else if(!newNode){
             return undefined;
-        }
+        } else {
         newNode.next = this.head;
         this.head = newNode;
+        }
         this.length++;
         return this.head;
     }
+    getVal(a){
+        if(a<0 || a>=this.length) return null;
+        let pointer = 0;
+        let current = this.head;
+        while(pointer!==a){
+            current = current.next;
+            pointer++;
+        }
+        return current;
+    }
+    set(index,updateVal){
+        if(!this.head){
+            return `list not found, nothing to updatw`
+        }
+        var foundNode = this.getVal(index);
+        if(foundNode){
+            foundNode.val = updateVal;
+            console.log(`List updated successfully at position ${index}`);
+        }
+        return this.head;
+    }
+    insert(index, insertVal){
+        if(index < 0 || index > this.length) return false;
+        if(index == this.length) return this.push(insertVal);
+        if(index == 0) return this.unshift(insertVal);
+        var newNode = new Node(insertVal);
+        var prev = this.getVal(index-1);
+        var temp = prev.next;
+        prev.next = newNode;
+        newNode.next = temp;
+        this.length++;
+        return true
+    }
+    Remove(index)
 }
 
 var list = new SinglyLinkedList();
-// console.log(list.push("Hello"));
-// console.log(list.push("There!"));
+list.push("Hello");
+list.push("There!");
+list.push("lol")
+// console.log();
 // console.log(list.push(99));
 // console.log(list.push(100));
 // console.log(list.shift());
 // console.log(list);
-console.log(list.unshift(0));
+// console.log(list.unshift(0));
+console.log(list.insert(100,8));
 console.log(list);
+// console.log(list);
+// console.log(list.getVal(100));
+// console.log(list.set(1,"false"));
+// console.log(list);
 // console.log(list.tail);
 // console.log(list.head);
 // console.log(list.pop());
