@@ -111,11 +111,34 @@ class SinglyLinkedList {
         this.length++;
         return true
     }
-    Remove(index)
+    Remove(index) {
+        if(index == 0) return this.shift();
+        if(index == this.length-1) return this.pop();
+        var current = this.getVal(index-1);
+        var removed = current.next;
+        current.next = removed.next;
+        this.length--;
+        return removed;
+    }
+    Reverse() {
+        var node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        var next;
+        var prev = null; 
+        for(var i =0 ; i<this.length; i++){
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        return this;
+    }
+    
 }
 
 var list = new SinglyLinkedList();
-list.push("Hello");
+list.push("Hello"); 
 list.push("There!");
 list.push("lol")
 // console.log();
@@ -124,7 +147,9 @@ list.push("lol")
 // console.log(list.shift());
 // console.log(list);
 // console.log(list.unshift(0));
-console.log(list.insert(100,8));
+// console.log(list.insert(100,8));
+// console.log(list);
+console.log(list.Remove(2));
 console.log(list);
 // console.log(list);
 // console.log(list.getVal(100));
@@ -136,3 +161,9 @@ console.log(list);
 // console.log(list.pop());
 // console.log(list.pop());
 // console.log(list.pop());
+
+//Time complexities for various operations on linked list : 
+//insertion : O(1)
+//Removal --> depends O(1) or O(N)
+//Searching => O(N)
+//Accessing --> O(N)
