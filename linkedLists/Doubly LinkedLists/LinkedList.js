@@ -19,7 +19,7 @@ class DoublyLinkedList{
         //list is empty
         if(!this.head) {
             this.head = current;
-            this.tail = this.head;
+            this.tail = current;
         }
         else {
             this.tail.next = current;
@@ -29,11 +29,33 @@ class DoublyLinkedList{
         this.length++;
         return this;
     }
+    pop(){
+        if(!this.head){
+            return undefined;
+        }
+        if(this.length == 1){
+            this.head = null;
+            this.tail = null;
+        }
+        else {
+            var poppedNode = this.tail;
+            this.tail = poppedNode.prev;
+            this.tail.next = null;
+            poppedNode.prev = null;
+        }
+        this.length--;
+        return this;
+
+    }
 }
 
 var list = new DoublyLinkedList();
 
-console.log(list.push(99));
-console.log(list.push(100));
+list.push(99);
+list.push(100);
+// list.push(200);
+list.pop();
+console.log(list);
+// console.log(list.pop());
 // var newNode = new Node(12);
 // console.log(newNode);
