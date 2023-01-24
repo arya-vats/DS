@@ -82,7 +82,7 @@ class DoublyLinkedList{
         if(!this.head){
             return undefined;
         }
-        if(index < this.length || index > this.length) return `out of bounds`
+        if(index < this.length || index > this.length) return null
         var current = this.head;
         var pointer = 0;
         while(pointer != index){
@@ -91,18 +91,45 @@ class DoublyLinkedList{
         }
         return current;
     }
-    // setVal(index, val){
+    setVal(index, UpdateVal){
+        if(!this.head){
+            return null;
+        }
+        var foundNode = this.getVal(index);
+        if(foundNode != null){
+        foundNode.val = UpdateVal;
+        return true;
+        }else{
+            return false;
+        }
+    }
+    insert(index, val){
+        if(index < 0 || index > this.length) return false;
+        if(index === 0) return this.unshift(val);
+        if(index === this.length) return this.push(val);
 
-    // }
+        var newNode = new Node(val);
+        var beforeNode = this.getVal(index-1);
+        var afterNode = beforeNode.next;
+        
+        beforeNode.next = newNode, newNode.prev = beforeNode;
+        newNode.next = afterNode, afterNode.prev = newNode;
+        this.length++;
+        return true;
+    }
 }
 
 var list = new DoublyLinkedList();
 
+
 list.push(99);
 list.push(100);
 list.unshift(89);
+console.log(list.insert(1,'HELLO'));
+// list.insert(2,"hello");
 // list.push(200);
-console.log(list.getVal(4));
+console.log(list);
+// console.log(list.setVal(0,9));
 // console.log(list.pop());
 // var newNode = new Node(12);
 // console.log(newNode);
